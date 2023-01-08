@@ -12,8 +12,8 @@ import { updateUser } from "../store/slices/usersSlice";
 
 const UpdateUser = () => {
     // Get users and villes from the store & dispatch
-    const villes = useSelector((state) => state.users.villes);
-    const users = useSelector((state) => state.users.users);
+    const villes = useSelector((state) => state.villes);
+    const users = useSelector((state) => state.users);
     const dispatch = useDispatch();
 
     // Get the id from the url

@@ -12,8 +12,8 @@ import { deleteUser } from "../store/slices/usersSlice";
 
 // Render the list of users
 const ListUsers = () => {
-    const villes = useSelector((state) => state.users.villes); // Get villes from the store
-    const usersFromStore = useSelector((state) => state.users.users); // Get users from the store
+    const villes = useSelector((state) => state.villes); // Get villes from the store
+    const usersFromStore = useSelector((state) => state.users); // Get users from the store
     const [users, setUsers] = useState([]); // Set the users state
 
     useEffect(() => {

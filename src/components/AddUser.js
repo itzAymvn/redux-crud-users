@@ -9,7 +9,7 @@ import { addUser } from "../store/slices/usersSlice";
 
 const AddUser = () => {
     // Get villes from the store & dispatch
-    const villes = useSelector((state) => state.users.villes);
+    const villes = useSelector((state) => state.villes);
     const dispatch = useDispatch();
 
     // Handle the submit
