@@ -1,7 +1,5 @@
 # Redux Crud: User Management
 
-[![License](https://img.shields.io/github/license/itzaymvn/redux-crud-users?style=for-the-badge)](
-
 This is a simple user management application that uses Redux to manage the state of the application. It uses [Redux Toolkit](https://redux-toolkit.js.org/) to create the store and reducers.
 
 ## What can it do?
@@ -32,4 +30,4 @@ npm start
 
 ## License
 
-[![License](https://img.shields.io/github/license/itzaymvn/redux-crud-users?style=for-the-badge)](https://github.com/itzAymvn/redux-crud-users/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/itzaymvn/redux-crud-users?style=for-the-badge)](https://github.com/itzAymvn/redux-crud-users/blob/main/LICENSE)
