@@ -4,23 +4,21 @@ import React from "react";
 // React Redux
 import { useSelector, useDispatch } from "react-redux";
 
-// React Router
+// Store functions
+import { addUser, updateUser } from "../store/slices/usersSlice";
+
+// React router
 import { useParams } from "react-router-dom";
 
-// Update function from the store
-import { updateUser } from "../store/slices/usersSlice";
-
-const UpdateUser = () => {
-    // Get users and villes from the store & dispatch
-    const villes = useSelector((state) => state.villes);
-    const users = useSelector((state) => state.users);
-    const dispatch = useDispatch();
-
-    // Get the id from the url
+const AddOrUpdateUser = () => {
     const { id } = useParams();
 
-    // Find the user with the id
-    const user = users.find((user) => user.id === Number(id));
+    // Get villes from the store & dispatch
+    const villes = useSelector((state) => state.villes);
+    const user = useSelector((state) =>
+        state.users.find((user) => user.id === parseInt(id))
+    );
+    const dispatch = useDispatch();
 
     // Handle the submit
     function handleSubmit(e) {
@@ -31,14 +29,22 @@ const UpdateUser = () => {
         const prenom = formData.get("prenom");
         const ville = formData.get("ville");
 
-        const updatedUser = {
-            id: user.id,
-            nom: nom ? nom : user.nom,
-            prenom: prenom ? prenom : user.prenom,
-            ville: ville ? ville : user.ville,
+        const newUser = {
+            nom,
+            prenom,
+            ville,
         };
 
-        dispatch(updateUser(updatedUser));
+        if (user) {
+            dispatch(
+                updateUser({
+                    id: user.id,
+                    ...newUser,
+                })
+            );
+        } else {
+            dispatch(addUser(newUser));
+        }
     }
 
     // Render the component
@@ -57,10 +63,10 @@ const UpdateUser = () => {
                     <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="name"
+                        name="nom"
                         type="text"
                         placeholder="Le nom de l'utilisateur"
-                        defaultValue={user.nom}
-                        name="nom"
+                        defaultValue={user ? user.nom : ""}
                     />
                 </div>
 
@@ -74,10 +80,10 @@ const UpdateUser = () => {
                     <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                         id="prenom"
+                        name="prenom"
                         type="text"
                         placeholder="Le prenom de l'utilisateur"
-                        defaultValue={user.prenom}
-                        name="prenom"
+                        defaultValue={user ? user.prenom : ""}
                     />
                 </div>
 
@@ -91,8 +97,8 @@ const UpdateUser = () => {
                     <select
                         id="ville"
                         name="ville"
-                        className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight       focus:outline-none focus:shadow-outline"
-                        defaultValue={user.ville}>
+                        className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                        defaultValue={user ? user.ville : ""}>
                         {villes.map((ville) => (
                             <option key={ville.id} value={ville.nom}>
                                 {ville.nom}
@@ -100,18 +106,17 @@ const UpdateUser = () => {
                         ))}
                     </select>
                 </div>
-
-                {/* Le bouton */}
-                <div className="flex items-center justify-between mt-4">
-                    <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="submit">
-                        Modifier
-                    </button>
-                </div>
+                <button
+                    className="bg-purple-700 block my-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="submit">
+                    {
+                        // If the user is defined, we are in the edit mode
+                        user ? "Modifier" : "Ajouter"
+                    }
+                </button>
             </form>
         </div>
     );
 };
 
-export default UpdateUser;
+export default AddOrUpdateUser;

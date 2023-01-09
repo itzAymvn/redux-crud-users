@@ -3,9 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 
 // Components
-import AddUser from "./components/AddUser";
+import AddOrUpdateUser from "./components/AddOrUpdateUser";
 import ListUsers from "./components/ListUsers";
-import UpdateUser from "./components/UpdateUser";
 
 const App = () => {
     return (
@@ -13,9 +12,9 @@ const App = () => {
             <Header />
             <Routes>
                 <Route path="/" element={<ListUsers />} />
-                <Route path="/addUser" element={<AddUser />} />
                 <Route path="/listUsers" element={<ListUsers />} />
-                <Route path="/update/:id" element={<UpdateUser />} />
+                <Route path="/addUser" element={<AddOrUpdateUser />} />
+                <Route path="/update/:id" element={<AddOrUpdateUser />} />
             </Routes>
         </>
     );
